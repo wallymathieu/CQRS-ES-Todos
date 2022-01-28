@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net451</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyTitle>Todo.CommandStack</AssemblyTitle>
     <Company>HP</Company>
     <Product>Todo.CommandStack</Product>
@@ -9,10 +9,6 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="5.4.0.0" />
     <PackageReference Include="NEventStore" Version="5.2.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Todo.Infrastructure\Todo.Infrastructure.csproj" />

@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 using Todo.Infrastructure;
 using Todo.Legacy.Migration.Worker;
 
 namespace Web.UI.Controllers
 {
-    public class MigrationController : ApiController
+    public class MigrationController : Controller
     {
         private readonly LegacyMigrationWorker Worker;
 
@@ -21,7 +17,7 @@ namespace Web.UI.Controllers
 
         [Route("api/Migrate")]
         [HttpPost]
-        public IHttpActionResult Migrate()
+        public IActionResult Migrate()
         {
             try
             {

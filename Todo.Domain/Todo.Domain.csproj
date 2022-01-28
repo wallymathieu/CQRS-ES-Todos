@@ -1,16 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net451</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyTitle>Todo.Domain</AssemblyTitle>
     <Product>Todo.Domain</Product>
     <Copyright>Copyright ©  2014</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NEventStore" Version="5.2.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Todo.Infrastructure\Todo.Infrastructure.csproj" />

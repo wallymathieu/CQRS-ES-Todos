@@ -16,8 +16,8 @@ namespace Todo.Legacy.Migration.Infrastructure
             Context = new ToDoContext();
             //Context.Configuration.AutoDetectChangesEnabled = false;
             // Lazy loading is turned off
-            Context.Configuration.LazyLoadingEnabled = false;
-            Context.Database.Log = s => { System.Diagnostics.Debug.WriteLine(s); }; ; 
+            //Context.Configuration.LazyLoadingEnabled = false;
+            //Context.Database.Log = s => { System.Diagnostics.Debug.WriteLine(s); }; ; 
 
         }
 

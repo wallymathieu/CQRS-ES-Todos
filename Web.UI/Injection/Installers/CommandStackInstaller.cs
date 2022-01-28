@@ -1,40 +1,43 @@
-﻿using Castle.Facilities.TypedFactory;
-using Castle.MicroKernel.Registration;
-using Castle.MicroKernel.SubSystems.Configuration;
-using Castle.Windsor;
+﻿using Autofac;
 using FluentValidation;
 using Todo.CommandStack.Logic.CommandHandlers;
 using Todo.CommandStack.Logic.Validators;
 using Todo.Infrastructure.Commands;
-using Todo.Infrastructure.Events;
 
 namespace Web.UI.Injection.Installers
 {
-    public class CommandStackInstaller : IWindsorInstaller
+    public class CommandStackInstaller : Module 
     {
-        public void Install(IWindsorContainer container, IConfigurationStore store)
+        protected override void Load(ContainerBuilder builder)
         {
-            container.Register(
+            builder.RegisterAssemblyTypes(typeof(ToDoListCommandHandlers).Assembly)
+                .AsClosedTypesOf(typeof(ICommandHandler<>)) // That implement ICommandHandler Interface
+                .SingleInstance();
+            /*container.Register(
                 Classes
                 .FromAssemblyContaining<ToDoListCommandHandlers>()
                 .BasedOn(typeof(ICommandHandler<>)) // That implement ICommandHandler Interface
-                .WithService.Base()    // and its name contain "CommandHandler"
+                .WithService.Base() // and its name contain "CommandHandler" 
                 .LifestyleSingleton()
-                );
-
-            container.Register(
+                );*/
+            builder.RegisterAssemblyTypes(typeof(CreateToDoListCommandValidator).Assembly)
+                .AsClosedTypesOf(typeof(IValidator<>)) // That implement IValidator Interface
+                .SingleInstance(); 
+            /*container.Register(
                 Classes
                 .FromAssemblyContaining<CreateToDoListCommandValidator>()
                 .BasedOn(typeof(IValidator<>)) // That implement IValidator Interface
                 .WithService.Base()    // and its name contain "Validator"
                 .LifestyleSingleton()
-                );
+                );*/
 
+            //builder.RegisterGeneratedFactory()
+                
             // DI Registration for Typed Factory for Command and Event Handlers
-            container.AddFacility<TypedFactoryFacility>()
+            /*container.AddFacility<TypedFactoryFacility>()
                 .Register(Component.For<ICommandHandlerFactory>().AsFactory())
                 .Register(Component.For<ICommandValidatorFactory>().AsFactory())
-                .Register(Component.For<IEventHandlerFactory>().AsFactory());
+                .Register(Component.For<IEventHandlerFactory>().AsFactory());*/
         }
     }
 

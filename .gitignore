@@ -3,3 +3,6 @@ bin
 obj
 CqrsEsTodo.v12.suo
 *.csproj.user
+.idea/
+.vs/
+.DS_Store

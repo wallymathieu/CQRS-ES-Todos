@@ -1,7 +1,4 @@
-﻿using Castle.MicroKernel.Registration;
-using Castle.MicroKernel.SubSystems.Configuration;
-using Castle.Windsor;
-using CommonDomain;
+﻿using CommonDomain;
 using CommonDomain.Core;
 using CommonDomain.Persistence;
 using CommonDomain.Persistence.EventStore;
@@ -11,7 +8,6 @@ using NEventStore.Dispatcher;
 using NEventStore.Persistence.Sql.SqlDialects;
 using Newtonsoft.Json;
 using System;
-using System.Reflection;
 using System.Runtime.Serialization;
 using Todo.Domain.Messages.Events;
 using Todo.Infrastructure;
@@ -19,57 +15,46 @@ using Todo.Infrastructure.Events.Versioning;
 //using Todo.QueryStack.Logic.EventHandlers;
 //using Todo.QueryStack.Logic;
 using System.Collections.Generic;
+using Autofac;
 using Todo.Infrastructure.Events;
 using NEventStore.Client;
+
 //using Todo.Infrastructure.Events.Polling;
 
 namespace Web.UI.Injection.Installers
 {
     //NOTE: for snapshots thanks to http://www.newdavesite.com/view/18365088
-    public class AggregateFactory : IConstructAggregates
+
+    public class EventStoreInstaller : Module 
     {
-        public IAggregate Build(Type type, Guid id, IMemento snapshot)
+        protected override void Load(ContainerBuilder builder)
         {
-            Type typeParam = snapshot != null ? snapshot.GetType() : typeof(Guid);
-            object[] paramArray;
-            if (snapshot != null)
-                paramArray = new object[] { snapshot };
-            else
-                paramArray = new object[] { id };
-
-            ConstructorInfo constructor = type.GetConstructor(
-                BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { typeParam }, null);
-
-            if (constructor == null)
-            {
-                throw new InvalidOperationException(
-                    string.Format("Aggregate {0} cannot be created: constructor with proper parameter not provided",
-                                  type.Name));
-            }
-            return constructor.Invoke(paramArray) as IAggregate;
-        }
-    }
-
-    public class EventStoreInstaller : IWindsorInstaller
-    {
-        public void Install(IWindsorContainer container, IConfigurationStore store)
-        {
-            container.Register(Component.For<IBus, IDispatchCommits>().ImplementedBy<InMemoryBus>().LifeStyle.Singleton);
-            container.Register(
+            builder.RegisterType<InMemoryBus>().As<IBus>().As<IDispatchCommits>().SingleInstance();
+            //container.Register(Component.For<IBus, IDispatchCommits>().ImplementedBy<InMemoryBus>().LifeStyle.Singleton);
+            builder.RegisterAssemblyTypes(typeof(ToDoEventsConverters).Assembly)
+                .AsClosedTypesOf(typeof(IUpconvertEvents<,>)) // That implement IUpconvertEvents Interface
+                ;
+            /*container.Register(
                 Classes
                 .FromAssemblyContaining<ToDoEventsConverters>()
                 .BasedOn(typeof(IUpconvertEvents<,>)) // That implement ICommandHandler Interface
                 .WithService.Base()
-                .LifestyleTransient());
+                .LifestyleTransient());*/
 
             // NeventStore with async PollingClient
-            container.Register(Component.For<NEventStoreWithCustomPipelineFactory>());
+            builder.RegisterType<NEventStoreWithCustomPipelineFactory>();
+            /*container.Register(Component.For<NEventStoreWithCustomPipelineFactory>());*/
             // NeventStore with sync dispatcher (OLD-STYLE reviewed)
             //container.Register(Component.For<NEventStoreWithSyncDispatcherFactory>());
-            container.Register(Component.For<IStoreEvents>().UsingFactoryMethod(() => container.Resolve<NEventStoreWithCustomPipelineFactory>().Create()).LifeStyle.Singleton);
-            container.Register(Component.For<IRepository>().ImplementedBy<EventStoreRepository>().LifeStyle.Transient);
-            container.Register(Component.For<IConstructAggregates>().ImplementedBy<AggregateFactory>().LifeStyle.Transient);
-            container.Register(Component.For<IDetectConflicts>().ImplementedBy<ConflictDetector>().LifeStyle.Transient);
+            builder.Register(container => container.Resolve<NEventStoreWithCustomPipelineFactory>().Create())
+                .SingleInstance().As<IStoreEvents>();
+            // container.Register(Component.For<IStoreEvents>().UsingFactoryMethod(() => container.Resolve<NEventStoreWithCustomPipelineFactory>().Create()).LifeStyle.Singleton);
+            builder.RegisterType<EventStoreRepository>().As<IRepository>();
+            //container.Register(Component.For<IRepository>().ImplementedBy<EventStoreRepository>().LifeStyle.Transient);
+            builder.RegisterType<AggregateFactory>().As<IConstructAggregates>();
+            //container.Register(Component.For<IConstructAggregates>().ImplementedBy<AggregateFactory>().LifeStyle.Transient);
+            builder.RegisterType<ConflictDetector>().As<IDetectConflicts>();
+            //container.Register(Component.For<IDetectConflicts>().ImplementedBy<ConflictDetector>().LifeStyle.Transient);
 
             //// Elegant way to write the same Registration as before:
             //container.Register(
@@ -79,12 +64,12 @@ namespace Web.UI.Injection.Installers
             //    C<IDetectConflicts, ConflictDetector>());		            
         }
 
-        private static ComponentRegistration<TS> C<TS, TC>()
+        /*private static ComponentRegistration<TS> C<TS, TC>()
             where TC : TS
             where TS : class
         {
             return Component.For<TS>().ImplementedBy<TC>().LifeStyle.Transient;
-        }
+        }*/
 
     }
 

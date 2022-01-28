@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.ModelBinding;
+using Microsoft.AspNetCore.Mvc;
 using Todo.Infrastructure;
 using Todo.QueryStack.Model;
 using Web.UI.Models.TodoList;
@@ -10,7 +9,7 @@ using Web.UI.Worker;
 
 namespace Web.UI.Controllers
 {
-    public class ToDoListController : ApiController
+    public class ToDoListController : Controller
     {
         private readonly ToDoWorker Worker;
 
@@ -33,7 +32,7 @@ namespace Web.UI.Controllers
 
         [Route("api/TodoList/ChangeDescription")]
         [HttpPost]
-        public IHttpActionResult ChangeDescription(ChangeTodoListDescriptionCommandModel model)
+        public IActionResult ChangeDescription(ChangeTodoListDescriptionCommandModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -51,7 +50,7 @@ namespace Web.UI.Controllers
 
         [Route("api/TodoList/CreateNewList")]
         [HttpPost]
-        public IHttpActionResult CreateNewList(CreateTodoListCommandModel model)
+        public IActionResult CreateNewList(CreateTodoListCommandModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -69,7 +68,7 @@ namespace Web.UI.Controllers
 
         [Route("api/Rebuild")]
         [HttpPost]
-        public IHttpActionResult Rebuild()
+        public IActionResult Rebuild()
         {
             try
             {
@@ -104,7 +103,7 @@ namespace Web.UI.Controllers
 
         [Route("api/TodoList/Items/{Id}/Add")]
         [HttpPost]
-        public IHttpActionResult AddItemToList(AddNewToDoItemCommandModel model)
+        public IActionResult AddItemToList(AddNewToDoItemCommandModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -113,8 +112,7 @@ namespace Web.UI.Controllers
             {
                 Worker.AddNewToDoItem(model);
                 string uri = Url.Link("GetTodoItemById", new { Id = model.Id});
-                var _Uri = new Uri(uri);
-                return Redirect(_Uri);                
+                return Redirect(uri);                
                 //return Ok();
             }
             catch (Exception ex)
@@ -125,7 +123,7 @@ namespace Web.UI.Controllers
 
         [Route("api/TodoItems/MarkAsComplete")]
         [HttpPost]
-        public IHttpActionResult MarkToDoItemAsComplete(MarkToDoItemAsCompleteModel model)
+        public IActionResult MarkToDoItemAsComplete(MarkToDoItemAsCompleteModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -143,7 +141,7 @@ namespace Web.UI.Controllers
 
         [Route("api/TodoItems/ReOpen")]
         [HttpPost]
-        public IHttpActionResult ReOpenToDoItem(ReOpenToDoItemModel model)
+        public IActionResult ReOpenToDoItem(ReOpenToDoItemModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -161,7 +159,7 @@ namespace Web.UI.Controllers
 
         [Route("api/TodoItems/ChangeDescription")]
         [HttpPost]
-        public IHttpActionResult ChangeDescription(ChangeToDoItemDescriptionModel model)
+        public IActionResult ChangeDescription(ChangeToDoItemDescriptionModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -179,7 +177,7 @@ namespace Web.UI.Controllers
 
         [Route("api/TodoItems/ChangeImportance")]
         [HttpPost]
-        public IHttpActionResult ReOpenToDoItem(ChangeToDoItemImportanceModel model)
+        public IActionResult ReOpenToDoItem(ChangeToDoItemImportanceModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -197,7 +195,7 @@ namespace Web.UI.Controllers
 
         [Route("api/TodoItems/ChangeDueDate")]
         [HttpPost]
-        public IHttpActionResult ChangeDueDate(ChangeToDoItemDueDateModel model)
+        public IActionResult ChangeDueDate(ChangeToDoItemDueDateModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

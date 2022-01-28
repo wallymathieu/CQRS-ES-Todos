@@ -1,10 +1,9 @@
-﻿using System.Web;
-using System.Web.Optimization;
-
+﻿
 namespace Web.UI
 {
     public class BundleConfig
     {
+        /*
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
@@ -39,5 +38,6 @@ namespace Web.UI
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
         }
+        */
     }
 }

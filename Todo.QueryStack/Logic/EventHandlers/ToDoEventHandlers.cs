@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Todo.Domain.Messages.Events;
 using Todo.Infrastructure;
 using Todo.Infrastructure.Events;

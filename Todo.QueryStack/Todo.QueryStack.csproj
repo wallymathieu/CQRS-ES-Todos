@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net451</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyTitle>Todo.QueryStack</AssemblyTitle>
     <Company>HP</Company>
     <Product>Todo.QueryStack</Product>
@@ -8,33 +8,15 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="4.0.4" />
-    <PackageReference Include="EntityFramework" Version="6.1.1" />
-    <PackageReference Include="jQuery" Version="1.6.4" />
-    <PackageReference Include="Microsoft.AspNet.SignalR" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNet.SignalR.JS" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNet.SignalR.SystemWeb" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Owin" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Owin.Security" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="NEventStore" Version="5.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="6.0.4" />
-    <PackageReference Include="Owin" Version="1.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Todo.Infrastructure\Todo.Infrastructure.csproj" />
     <ProjectReference Include="..\Todo.Domain\Todo.Domain.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.6.4.js" />
-    <Content Include="Scripts\jquery-1.6.4.min.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.0.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
   </ItemGroup>
 </Project>

@@ -1,13 +1,14 @@
-﻿using AutoMapper;
-using Castle.MicroKernel.Registration;
+﻿using Autofac;
+using AutoMapper;
 
 namespace Web.UI.Injection.Installers
 {
-    public class MappersInstaller : IWindsorInstaller
+    public class MappersInstaller : Module 
     {
-        public void Install(Castle.Windsor.IWindsorContainer container, Castle.MicroKernel.SubSystems.Configuration.IConfigurationStore store)
+        protected override void Load(ContainerBuilder builder)
         {
-            container.Register(Component.For<IMappingEngine>().UsingFactoryMethod(() => Mapper.Engine));
+            builder.Register(di => Mapper.Engine).As<IMappingEngine>();
+            base.Load(builder);
         }
     }
 }
