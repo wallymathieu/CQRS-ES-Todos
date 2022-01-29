@@ -1,12 +1,10 @@
-﻿using CommonDomain.Core;
-using CommonDomain.Persistence;
-using NEventStore;
+﻿using NEventStore;
 using System;
 using Todo.Infrastructure.Domain;
 
 namespace Todo.Infrastructure.Commands
 {
-    public abstract class SnapshotCreator<T> where T : AggregateBase
+    public abstract class SnapshotCreator<T> 
     {
         private readonly IRepository _repo;
         private readonly IStoreEvents _store;

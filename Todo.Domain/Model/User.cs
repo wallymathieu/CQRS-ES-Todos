@@ -1,11 +1,13 @@
-﻿using CommonDomain.Core;
-using System;
+﻿using System;
 
 namespace Todo.Domain.Model
 {
-    public class User : AggregateBase
+    public class User 
     {
         public string UserName { get; private set; }
+        public Guid Id { get; private set; }
+        public int Version { get; private set; }
+
 
         public User()
         {

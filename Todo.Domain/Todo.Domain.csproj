@@ -6,7 +6,7 @@
     <Copyright>Copyright ©  2014</Copyright>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NEventStore" Version="5.2.0" />
+    <PackageReference Include="NEventStore" Version="9.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Todo.Infrastructure\Todo.Infrastructure.csproj" />

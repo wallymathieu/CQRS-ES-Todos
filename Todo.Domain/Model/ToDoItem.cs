@@ -1,13 +1,11 @@
-﻿using CommonDomain;
-using CommonDomain.Core;
-using System;
+﻿using System;
 using Todo.Domain.Common;
 using Todo.Domain.Messages.Events;
 using Todo.Infrastructure.Domain;
 
 namespace Todo.Domain.Model
 {
-    public class ToDoItem : AggregateBase, IMementoCreator
+    public class ToDoItem 
     {
         public Guid ToDoListId { get; private set; }
         public string Description { get; private set; }
@@ -16,6 +14,8 @@ namespace Todo.Domain.Model
         public int Importance { get; private set; }
         public DateTime? ClosingDate { get; private set; }
         public int UserId { get; private set; }
+        public Guid Id { get; private set; }
+        public int Version { get; private set; }
 
         //constructor with only id parameter for EventStore
         private ToDoItem(Guid id)

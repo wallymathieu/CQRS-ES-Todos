@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net5</TargetFramework>
+    <TargetFramework>net6</TargetFramework>
     <AssemblyTitle>Web.UI</AssemblyTitle>
     <Company>HP</Company>
     <Product>Web.UI</Product>
@@ -15,7 +15,7 @@
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,14 +62,15 @@
   </Target>
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
-    <PackageReference Include="AutoMapper" Version="4.0.4" />
-    <PackageReference Include="FluentValidation" Version="5.4.0.0" />
-    <PackageReference Include="HangFire" Version="1.4.5" />
-    <PackageReference Include="Hangfire.Core" Version="1.4.5" />
-    <PackageReference Include="Hangfire.SqlServer" Version="1.4.5" />
-    <PackageReference Include="NEventStore" Version="5.2.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="6.0.4" />
-    <PackageReference Include="System.Spatial" Version="5.2.0" />
+    <PackageReference Include="AutoMapper" Version="11.0.0" />
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
+    <PackageReference Include="HangFire" Version="1.7.28" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.28" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.28" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
+    <PackageReference Include="NEventStore" Version="9.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Spatial" Version="5.8.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Todo.Infrastructure\Todo.Infrastructure.csproj" />

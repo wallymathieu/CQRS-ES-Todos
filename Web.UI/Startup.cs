@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Todo.QueryStack;
 using Web.UI.Injection.Installers;
 
 
@@ -31,6 +32,8 @@ namespace Web.UI
                 configuration.RootPath = "ClientApp/dist";
             });
             services.AddSignalR();
+            services.AddDbContext<ToDoContext>(options => options.UseSqlServer(connection));
+
             var builder = new Autofac.ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule<MappersInstaller>()

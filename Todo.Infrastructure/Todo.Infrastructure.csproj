@@ -7,9 +7,9 @@
     <Copyright>Copyright © HP 2014</Copyright>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="5.4.0.0" />
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="NEventStore" Version="5.2.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="6.0.4" />
+    <PackageReference Include="NEventStore" Version="9.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 </Project>

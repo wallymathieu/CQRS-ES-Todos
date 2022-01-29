@@ -1,5 +1,4 @@
-﻿using CommonDomain.Persistence;
-using NEventStore;
+﻿using NEventStore;
 using System;
 using System.Collections.Generic;
 using System.Transactions;

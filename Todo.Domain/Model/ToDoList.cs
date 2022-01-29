@@ -1,13 +1,11 @@
-﻿using CommonDomain;
-using CommonDomain.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Todo.Domain.Messages.Events;
 using Todo.Infrastructure.Domain;
 
 namespace Todo.Domain.Model
 {
-    public class ToDoList : AggregateBase, IMementoCreator
+    public class ToDoList 
     {
         public string Title { get; private set; }
         public string Description { get; private set; }
@@ -18,6 +16,9 @@ namespace Todo.Domain.Model
         {
             Id = id;
         }
+
+        public Guid Id { get; private set; }
+        public int Version { get; private set; }
 
         //constructor with IMemento parameter for EventStore Snapshooting
         private ToDoList(ToDoListMemento mementoItem)
@@ -62,15 +63,9 @@ namespace Todo.Domain.Model
         }
         #endregion
 
-        #region TodoItem Memento factory
-        public IMemento CreateMemento()
-        {
-            return new ToDoListMemento(Id, Version, Title, Description);
-        }
-        #endregion
     }
 
-    public class ToDoListMemento : IMemento
+    public class ToDoListMemento 
     {
         public Guid Id { get; set; }
         public int Version { get; set; }
